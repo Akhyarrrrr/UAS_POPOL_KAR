@@ -31,9 +31,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy project files
 COPY . /var/www/html
 
-# Setup environment
-COPY .env.example /var/www/html/.env
-
 # Install project dependencies
 RUN composer install --no-interaction --optimize-autoloader
 
@@ -46,9 +43,6 @@ RUN php artisan key:generate
 # Clear config and cache
 RUN php artisan config:clear
 RUN php artisan cache:clear
-
-# Set environment variable
-ENV PORT=8080
 
 # Expose port
 EXPOSE 8080
